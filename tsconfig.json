@@ -9,6 +9,8 @@
     }
   ],
   "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [

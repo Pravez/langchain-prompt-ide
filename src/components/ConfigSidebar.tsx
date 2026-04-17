@@ -1,28 +1,28 @@
-import { usePromptStore } from '@/store/usePromptStore';
+import { usePromptStore } from "@/store/usePromptStore"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from './ui/sheet';
-import { Label } from './ui/label';
+} from "./ui/sheet"
+import { Label } from "./ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { type TemplateFormat } from '@/types';
+} from "./ui/select"
+import { type TemplateFormat } from "@/types"
 
 interface ConfigSidebarProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
 
 export function ConfigSidebar({ open, onOpenChange }: ConfigSidebarProps) {
-  const { templateFormat, setTemplateFormat } = usePromptStore();
+  const { templateFormat, setTemplateFormat } = usePromptStore()
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -38,7 +38,9 @@ export function ConfigSidebar({ open, onOpenChange }: ConfigSidebarProps) {
             <Label htmlFor="template-format">Template Engine</Label>
             <Select
               value={templateFormat}
-              onValueChange={(value: TemplateFormat) => setTemplateFormat(value)}
+              onValueChange={(value: TemplateFormat) =>
+                setTemplateFormat(value)
+              }
             >
               <SelectTrigger id="template-format">
                 <SelectValue placeholder="Select format" />
@@ -46,7 +48,6 @@ export function ConfigSidebar({ open, onOpenChange }: ConfigSidebarProps) {
               <SelectContent>
                 <SelectItem value="f-string">f-string</SelectItem>
                 <SelectItem value="mustache">mustache</SelectItem>
-                <SelectItem value="jinja2">jinja2</SelectItem>
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
@@ -56,5 +57,5 @@ export function ConfigSidebar({ open, onOpenChange }: ConfigSidebarProps) {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
