@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+![](docs/images/app_icon.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# LangChain Prompt IDE
+![LangChain](https://img.shields.io/badge/langchain-%231C3C3C.svg?style=for-the-badge&logo=langchain&logoColor=white)
+![LangGraph](https://img.shields.io/badge/langgraph-%231C3C3C.svg?style=for-the-badge&logo=langgraph&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 
-Currently, two official plugins are available:
+A lightweight executable for creating, editing, importing, and exporting LangChain prompts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+It provides a focused prompt-editing experience with a rich text editor, variable highlighting, and support for generating Markdown prompts. Prompts can be exchanged through a JSON-based LangChain import/export format, making it easy to move them between tools and workflows.
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Rich text prompt editor** for writing and refining prompts
+- **Variable highlighting** to make placeholders easy to spot
+- **Markdown prompt output** for clean prompt representation
+- **Import/export via JSON** using LangChain-compatible prompt data
+- **Designed for quick prompt iteration** and reusable prompt management
 
-Note: This will impact Vite dev & build performances.
+## Run
 
-## Expanding the ESLint configuration
+You can run the app with:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```shell
+npx langchain-prompt-ide
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Use cases
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Edit LangChain prompts in a dedicated interface
+- Import existing prompt definitions and modify them
+- Export prompts for reuse or sharing
+- Keep prompt templates organized with readable variable placeholders
+
+## Screenshots
+
+![](docs/images/screen_1.png)
+![](docs/images/screen_2.png)
+
+## Notes
+
+This project is intended as a prompt editor and prompt exchange tool for LangChain workflows.

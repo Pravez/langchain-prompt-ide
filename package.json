@@ -1,7 +1,9 @@
 {
   "name": "langchain-prompt-ide",
-  "private": true,
-  "version": "0.0.0",
+  "repository": "https://github.com/Pravez/langchain-prompt-ide",
+  "author": "Pravez",
+  "private": false,
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
