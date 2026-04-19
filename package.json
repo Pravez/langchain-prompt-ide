@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:production": "tsc -b && vite build --mode production",
-    "build:github-pages": "tsc -b && vite build --mode production --base=/langchain-prompt-ide/",
+    "build:github-pages": "tsc -b && vite build --mode production --base=/",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
