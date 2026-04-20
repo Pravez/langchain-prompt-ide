@@ -33,7 +33,7 @@ export function PromptHeader() {
     toast.success("Prompt saved to history")
   }
 
-  const handleExport = () => {
+  const handleExportToFile = () => {
     try {
       const json = exportToLangChainJSON({ title, messages, templateFormat })
       const blob = new Blob([JSON.stringify(json, null, 2)], {
@@ -45,10 +45,22 @@ export function PromptHeader() {
       a.download = `${title.toLowerCase().replace(/\s+/g, "-")}.json`
       a.click()
       URL.revokeObjectURL(url)
-      toast.success("Prompt exported successfully")
+      toast.success("Prompt exported to file")
     } catch (error) {
       console.error(error)
       toast.error("Failed to export prompt template")
+    }
+  }
+
+  const handleExportToClipboard = async () => {
+    try {
+      const json = exportToLangChainJSON({ title, messages, templateFormat })
+      const text = JSON.stringify(json, null, 2)
+      await navigator.clipboard.writeText(text)
+      toast.success("Prompt exported to clipboard")
+    } catch (error) {
+      console.error(error)
+      toast.error("Failed to copy to clipboard")
     }
   }
 
@@ -129,9 +141,24 @@ export function PromptHeader() {
         <Button variant="default" onClick={handleSave}>
           Save
         </Button>
-        <Button variant="outline" onClick={handleExport}>
-          Export
-        </Button>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="gap-2">
+              Export <ChevronDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={handleExportToFile}>
+              <FileJson className="mr-2 h-4 w-4" />
+              <span>To File</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={handleExportToClipboard}>
+              <Clipboard className="mr-2 h-4 w-4" />
+              <span>To Clipboard</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
