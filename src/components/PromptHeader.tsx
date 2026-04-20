@@ -94,9 +94,8 @@ export function PromptHeader() {
 
         if (navigator.permissions && navigator.permissions.query) {
           try {
-            // @ts-expect-error: 'clipboard-read' is not yet in the standard PermissionName enum in all environments
             const permissionStatus = await navigator.permissions.query({
-              name: "clipboard-read",
+              name: "clipboard-read" as PermissionName,
             })
             if (permissionStatus.state === "denied") {
               message =
