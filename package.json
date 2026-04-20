@@ -1,6 +1,11 @@
 {
   "name": "langchain-prompt-ide",
-  "repository": "https://github.com/Pravez/langchain-prompt-ide",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pravez/langchain-prompt-ide.git"
+  },
+  "description": "A web-based IDE for LangChain prompts",
+  "license": "Apache-2.0",
   "homepage": "https://pravez.github.io/langchain-prompt-ide/",
   "author": "Pravez",
   "private": false,
@@ -17,7 +22,7 @@
     "lint:fix": "eslint . --fix"
   },
   "bin": {
-    "ide": "./bin/cli.js"
+    "ide": "bin/cli.js"
   },
   "files": [
     "dist",
