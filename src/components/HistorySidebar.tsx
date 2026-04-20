@@ -2,7 +2,7 @@ import { usePromptStore } from "@/store/usePromptStore"
 import { Button } from "./ui/button"
 import { ScrollArea } from "./ui/scroll-area"
 import { Separator } from "./ui/separator"
-import { Plus, Trash2, FileText, Sun, Moon } from "lucide-react"
+import { Plus, Trash2, FileText, Sun, Moon, FolderGit2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import logo from "@/assets/app_icon.png"
 import { useTheme } from "next-themes"
@@ -93,24 +93,30 @@ export function HistorySidebar() {
         </div>
       </ScrollArea>
 
-      <div className="mt-auto border-t p-4">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t p-4">
         <Button
           variant="ghost"
-          size="sm"
-          className="w-full justify-start gap-2"
+          size="icon"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          title={
+            theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          }
         >
           {theme === "dark" ? (
-            <>
-              <Sun className="h-4 w-4" />
-              <span>Light Mode</span>
-            </>
+            <Sun className="h-4 w-4" />
           ) : (
-            <>
-              <Moon className="h-4 w-4" />
-              <span>Dark Mode</span>
-            </>
+            <Moon className="h-4 w-4" />
           )}
+        </Button>
+        <Button variant="ghost" size="icon" asChild>
+          <a
+            href="https://github.com/Pravez/langchain-prompt-ide"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="View on GitHub"
+          >
+            <FolderGit2Icon className="h-4 w-4" />
+          </a>
         </Button>
       </div>
     </div>

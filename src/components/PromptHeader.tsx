@@ -1,13 +1,19 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { usePromptStore } from "@/store/usePromptStore"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
 import {
   parseLangChainJSON,
   exportToLangChainJSON,
 } from "@/lib/langchain/serialization"
 import { toast } from "sonner"
-import { Settings } from "lucide-react"
+import { Settings, ChevronDown, FileJson, Clipboard } from "lucide-react"
 import { ConfigSidebar } from "./ConfigSidebar"
 
 export function PromptHeader() {
@@ -20,6 +26,7 @@ export function PromptHeader() {
     saveCurrentPrompt,
   } = usePromptStore()
   const [isConfigOpen, setIsConfigOpen] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleSave = () => {
     saveCurrentPrompt()
@@ -57,6 +64,55 @@ export function PromptHeader() {
     } catch (error) {
       console.error(error)
       toast.error("Failed to import prompt template")
+    } finally {
+      // Reset input so the same file can be selected again
+      if (e.target) e.target.value = ""
+    }
+  }
+
+  const handleClipboardImport = async () => {
+    if (!navigator.clipboard) {
+      toast.error("Clipboard API not supported in this browser or context.")
+      return
+    }
+
+    try {
+      const text = await navigator.clipboard.readText()
+      if (!text || text.trim() === "") {
+        toast.error("Clipboard is empty")
+        return
+      }
+      const template = await parseLangChainJSON("clipboard.json", text)
+      importTemplate(template)
+      toast.success("Prompt imported from clipboard")
+    } catch (error) {
+      console.error(error)
+      if (error instanceof Error && error.name === "NotAllowedError") {
+        // If access was denied, we can optionally check the permission status to give better feedback
+        let message =
+          "Clipboard access denied or dismissed. Please allow access when prompted."
+
+        if (navigator.permissions && navigator.permissions.query) {
+          try {
+            // @ts-expect-error: 'clipboard-read' is not yet in the standard PermissionName enum in all environments
+            const permissionStatus = await navigator.permissions.query({
+              name: "clipboard-read",
+            })
+            if (permissionStatus.state === "denied") {
+              message =
+                "Clipboard access denied. Please enable it in your browser settings."
+            }
+          } catch (e) {
+            // Some browsers (like Firefox) throw a TypeError if 'clipboard-read' is not supported
+            console.debug("Permissions API query for clipboard-read failed:", e)
+          }
+        }
+        toast.error(message)
+      } else {
+        toast.error(
+          "Failed to import from clipboard. Ensure it's valid JSON data.",
+        )
+      }
     }
   }
 
@@ -77,18 +133,35 @@ export function PromptHeader() {
         <Button variant="outline" onClick={handleExport}>
           Export
         </Button>
-        <label htmlFor="import-prompt">
-          <Button variant="outline" asChild>
-            <span>Import</span>
-          </Button>
-          <input
-            id="import-prompt"
-            type="file"
-            accept=".json"
-            className="hidden"
-            onChange={handleImport}
-          />
-        </label>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="gap-2">
+              Import <ChevronDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={() => fileInputRef.current?.click()}>
+              <FileJson className="mr-2 h-4 w-4" />
+              <span>From File</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={handleClipboardImport}
+            >
+              <Clipboard className="mr-2 h-4 w-4" />
+              <span>From Clipboard</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json"
+          className="hidden"
+          onChange={handleImport}
+        />
+
         <Button
           variant="ghost"
           size="icon"

@@ -1,6 +1,7 @@
 {
   "name": "langchain-prompt-ide",
   "repository": "https://github.com/Pravez/langchain-prompt-ide",
+  "homepage": "https://pravez.github.io/langchain-prompt-ide/",
   "author": "Pravez",
   "private": false,
   "version": "0.1.7",
