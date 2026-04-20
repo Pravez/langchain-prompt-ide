@@ -31,7 +31,9 @@ export function MessageItem({ message, onRemove }: MessageItemProps) {
               <NativeSelect
                 value={message.role}
                 onChange={(e) =>
-                  updateMessage(message.id, { role: e.target.value as MessageRole })
+                  updateMessage(message.id, {
+                    role: e.target.value as MessageRole,
+                  })
                 }
               >
                 <NativeSelectOption value="system">System</NativeSelectOption>

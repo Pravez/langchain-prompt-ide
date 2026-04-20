@@ -19,7 +19,9 @@ export const VariableHighlight = Extension.create({
                 const regex = /\{[\w-]+\}/g
                 let match
 
-                const isInsideCode = parent?.type.name === "codeBlock" || parent?.type.name === "code"
+                const isInsideCode =
+                  parent?.type.name === "codeBlock" ||
+                  parent?.type.name === "code"
 
                 while ((match = regex.exec(node.text)) !== null) {
                   const from = pos + match.index

@@ -121,7 +121,7 @@ export function PromptHeader() {
         toast.error(message)
       } else {
         toast.error(
-          "Failed to import from clipboard. Ensure it's valid JSON data.",
+          "Failed to import from clipboard. Ensure it's valid JSON data."
         )
       }
     }
@@ -171,9 +171,7 @@ export function PromptHeader() {
               <FileJson className="mr-2 h-4 w-4" />
               <span>From File</span>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={handleClipboardImport}
-            >
+            <DropdownMenuItem onSelect={handleClipboardImport}>
               <Clipboard className="mr-2 h-4 w-4" />
               <span>From Clipboard</span>
             </DropdownMenuItem>

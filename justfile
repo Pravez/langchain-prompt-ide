@@ -5,3 +5,9 @@ tag version="patch":
 
 publish version="patch": (tag version)
     npm publish
+
+lint-and-fix:
+    npm run format
+    npm run typecheck
+    npm run lint:fix
+    npm run build

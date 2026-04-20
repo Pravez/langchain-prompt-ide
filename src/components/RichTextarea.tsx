@@ -63,7 +63,7 @@ function ToolbarButton({
           {children}
         </Button>
       </TooltipTrigger>
-      <TooltipContent side="top" className="text-[10px] px-2 py-1">
+      <TooltipContent side="top" className="px-2 py-1 text-[10px]">
         {tooltip}
       </TooltipContent>
     </Tooltip>
@@ -73,7 +73,7 @@ function ToolbarButton({
 function EditorToolbar({ editor }: { editor: Editor }) {
   return (
     <TooltipProvider delayDuration={400}>
-      <div className="flex flex-wrap items-center gap-1 p-1 border-b bg-muted/20">
+      <div className="flex flex-wrap items-center gap-1 border-b bg-muted/20 p-1">
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           active={editor.isActive("bold")}
@@ -99,21 +99,27 @@ function EditorToolbar({ editor }: { editor: Editor }) {
         <Separator orientation="vertical" className="mx-1 h-6" />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
           active={editor.isActive("heading", { level: 1 })}
           tooltip="Heading 1"
         >
           <Heading1 className="size-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
           active={editor.isActive("heading", { level: 2 })}
           tooltip="Heading 2"
         >
           <Heading2 className="size-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
           active={editor.isActive("heading", { level: 3 })}
           tooltip="Heading 3"
         >
@@ -147,7 +153,13 @@ function EditorToolbar({ editor }: { editor: Editor }) {
         <Separator orientation="vertical" className="mx-1 h-6" />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+          onClick={() =>
+            editor
+              .chain()
+              .focus()
+              .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+              .run()
+          }
           tooltip="Insert Table"
         >
           <TableIcon className="size-4" />
@@ -188,7 +200,7 @@ export function RichTextarea({
     editorProps: {
       attributes: {
         class: cn(
-          "prose prose-sm prose-neutral dark:prose-invert max-w-none min-h-[100px] w-full px-6 py-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&_.ProseMirror]:min-h-[100px] [&_.ProseMirror]:outline-none [&_p]:my-0 leading-normal",
+          "prose prose-sm min-h-[100px] w-full max-w-none px-6 py-2 leading-normal prose-neutral focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:prose-invert [&_.ProseMirror]:min-h-[100px] [&_.ProseMirror]:outline-none [&_p]:my-0",
           className
         ),
       },
@@ -197,12 +209,12 @@ export function RichTextarea({
 
   useEffect(() => {
     if (editor && value !== editor.getMarkdown()) {
-      editor.commands.setContent(value, { contentType: 'markdown' })
+      editor.commands.setContent(value, { contentType: "markdown" })
     }
   }, [value, editor])
 
   return (
-    <div className="relative w-full rounded-md border border-input bg-transparent shadow-sm transition-colors focus-within:ring-1 focus-within:ring-ring overflow-hidden">
+    <div className="relative w-full overflow-hidden rounded-md border border-input bg-transparent shadow-sm transition-colors focus-within:ring-1 focus-within:ring-ring">
       {editor && <EditorToolbar editor={editor} />}
       <EditorContent editor={editor} />
     </div>
