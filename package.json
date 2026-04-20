@@ -4,7 +4,7 @@
   "homepage": "https://pravez.github.io/langchain-prompt-ide/",
   "author": "Pravez",
   "private": false,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
